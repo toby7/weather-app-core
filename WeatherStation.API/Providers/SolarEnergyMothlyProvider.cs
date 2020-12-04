@@ -25,9 +25,9 @@
 
         public string Name => nameof(SolarEnergyMonthlyProvider);
 
-        public async  Task<KeyFigure> Get()
+        public async Task<KeyFigure> Get()
         {
-            using var client = new HttpClient();
+            using var client = new HttpClient(); // TODO Create httpClientFactory to resuse clients
             var url = $"{this.baseUrl}/timeFrameEnergy.json?" +
                       $"startDate={DateTime.Now.AddMonths(-1):yyyy-MM-dd}&" +
                       $"endDate={DateTime.Now:yyyy-MM-dd}&" +
@@ -43,7 +43,10 @@
                 Name = "Solenergi senaste månaden",
                 Unit = "kWh",
                 Updated = DateTime.Now,
-                Value = data.timeFrameEnergy.energy.ToKiloWattHour().ToString(),
+                Value = data.timeFrameEnergy.energy
+                    .ToKiloWattHour()
+                    .ToRounded(2)
+                    .ToString()
             };
 
             return model;

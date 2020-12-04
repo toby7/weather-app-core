@@ -53,14 +53,14 @@ namespace WeatherStation.API.Providers
            // var json = test.FirstOrDefault().Json;//test.Where((x, i) => i % 6 == 0).Select(y => y.Json);
             
            //var test = JObject.Parse(json.First())
-            var content = json.Select(x => JsonConvert.DeserializeObject<TemperatureModel>(x, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));//JsonConvert.DeserializeObject<TemperatureModel>(json);//json.Select(x => JsonConvert.DeserializeObject<TemperatureModel>(x, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            var content = json.Select(x => JsonConvert.DeserializeObject<TemperatureModel>(x, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
 
             var model = new KeyFigure()
             {
                 Name = "Utomhustemperatur Stureby",
                 Unit = "°C",
-                Updated = content.FirstOrDefault().Time.ToLocalTime(),//new DateTime(data.Updated),
-                Value = Math.Round(content.FirstOrDefault().Temperature, 1, MidpointRounding.AwayFromZero).ToString() ?? "error",
+                Updated = content.FirstOrDefault().Time.ToLocalTime(),
+                Value = content.FirstOrDefault().Temperature.ToRounded().ToString() ?? "error",
                 Trend = content.Select(x => x.Temperature).Skip(1).Take(3).ToTrend(content.FirstOrDefault().Temperature),
             };
 

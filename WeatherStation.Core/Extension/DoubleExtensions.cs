@@ -12,5 +12,10 @@ namespace WeatherStation.Core.Extension
         {
             return value * 0.001;
         }
+
+        public static double ToRounded(this double value, int digits = 1)
+        {
+            return Math.Round(value, 1, MidpointRounding.AwayFromZero);
+        }
     }
 }
