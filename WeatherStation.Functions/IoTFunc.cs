@@ -18,11 +18,4 @@ namespace WeatherStation.Functions
             return new TemperatureTableModel { PartitionKey = "Temperature", RowKey = (DateTime.MaxValue.Ticks - DateTime.UtcNow.Ticks).ToString("d19"), Json = Encoding.UTF8.GetString(message.Body.Array) };
         }
     }
-
-    //public class TemperatureTableModel : Itabl
-    //{
-    //    public string PartitionKey { get; set; }
-    //    public string RowKey { get; set; }
-    //    public string Json { get; set; }
-    //}
 }
