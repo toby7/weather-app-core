@@ -12,18 +12,18 @@ using WeatherStation.Model.SolarEdge;
 
 namespace WeatherStation.API.Providers
 {
-    public class SolarEnergyMonthlyProvider : IKeyFigureProvider
+    public class SolarEnergyProvider : IKeyFigureProvider
     {
         private readonly SolarEdgeSettings settings;
         private readonly string baseUrl; 
 
-        public SolarEnergyMonthlyProvider(IOptions<SolarEdgeSettings> settings)
+        public SolarEnergyProvider(IOptions<SolarEdgeSettings> settings)
         {
             this.settings = settings?.Value ?? throw new ArgumentNullException(nameof(settings));
             this.baseUrl = $"{this.settings.BaseUrl}/{this.settings.SiteId}";
         }
 
-        public string Name => nameof(SolarEnergyMonthlyProvider);
+        public string Name => nameof(SolarEnergyProvider);
 
         public async Task<KeyFigure> Get()
         {

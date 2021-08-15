@@ -52,7 +52,7 @@ namespace WeatherStation.API
             {
                 ServiceDescriptor.Scoped<IKeyFigureProvider, WaterLevelProvider>(),
                 ServiceDescriptor.Scoped<IKeyFigureProvider, OutdoorTemperatureProvider>(),
-                ServiceDescriptor.Scoped<IKeyFigureProvider, SolarEnergyMonthlyProvider>()
+                ServiceDescriptor.Scoped<IKeyFigureProvider, SolarEnergyProvider>()
             });
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
