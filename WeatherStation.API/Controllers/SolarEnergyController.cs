@@ -26,7 +26,7 @@ namespace WeatherStation.API.Controllers
 
         [Route("LastMonth")]
         [HttpGet]
-        public async Task<IActionResult> Get()//Task<ActionResult<TemperatureDto>> Get()
+        public async Task<IActionResult> Get()
         {
             var model = await this.providers.FirstOrDefault(x => x.Name.Equals(this.settings.SolarEnergyLastMonth)).Get() ?? new KeyFigure();
 

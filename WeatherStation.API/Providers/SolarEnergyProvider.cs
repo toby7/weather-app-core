@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -43,7 +44,7 @@ namespace WeatherStation.API.Providers
                 Name = "Solenergi idag",
                 Unit = "kWh",
                 Updated = DateTime.UtcNow,
-                Value = data.timeFrameEnergy.energy
+                Value = data.energy.values.First().value
                     .ToKiloWattHour()
                     .ToRounded(2)
                     .ToString()

@@ -1,36 +1,28 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace WeatherStation.Model.SolarEdge
 {
     using Newtonsoft.Json;
 
-    public class StartLifetimeEnergy
+    public class Value
     {
         public string date { get; set; }
-        public double energy { get; set; }
-        public string unit { get; set; }
+        public double value { get; set; }
     }
 
-    public class EndLifetimeEnergy
+    public class Energy
     {
-        public string date { get; set; }
-        public double energy { get; set; }
-        public string unit { get; set; }
-    }
-
-    public class TimeFrameEnergy
-    {
-        public double energy { get; set; }
+        public string timeUnit { get; set; }
         public string unit { get; set; }
         public string measuredBy { get; set; }
-        public StartLifetimeEnergy startLifetimeEnergy { get; set; }
-        public EndLifetimeEnergy endLifetimeEnergy { get; set; }
+        public List<Value> values { get; set; }
     }
 
+    //[JsonObject("Root")]
     public class Root
     {
-        public TimeFrameEnergy timeFrameEnergy { get; set; }
+        public Energy energy { get; set; }
     }
 }
