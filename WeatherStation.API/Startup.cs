@@ -23,7 +23,6 @@ namespace WeatherStation.API
 
         public IConfiguration Configuration { get; }
 
-        // Add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry();
@@ -33,11 +32,9 @@ namespace WeatherStation.API
                 options.AddPolicy("AllowOrigin",
                     builder =>
                     {
-                        // Not a permanent solution, but just trying to isolate the problem
                         builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                     });
             });
-
 
             services.AddSwaggerGen(c =>
             {
@@ -50,8 +47,6 @@ namespace WeatherStation.API
                 );
 
             services.AddTransient<ITableService, TableService>();
-            //services.AddTransient<IKeyFigureProvider, WaterLevelProvider>();
-            //services.AddTransient<IKeyFigureProvider, OutdoorTemperatureProvider>();
 
             services.TryAddEnumerable(new[]
             {
@@ -66,7 +61,6 @@ namespace WeatherStation.API
             services.AddControllers();
         }
 
-        // Configures the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -75,11 +69,8 @@ namespace WeatherStation.API
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseCors("AllowOrigin");
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -88,15 +79,10 @@ namespace WeatherStation.API
             });
 
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather station V1");
             });
-
-
-            //app.UseCors(options => options.AllowAnyOrigin());
-            
         }
     }
 }

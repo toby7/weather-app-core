@@ -12,7 +12,7 @@ namespace WeatherStation.API.Controllers
     using Settings;
 
     [ApiController]
-    [Route("api/SolarEnergy")]
+    [Route("api/solarEnergy")]
     public class SolarEnergyController : ControllerBase
     {
         private readonly AppSettings settings;

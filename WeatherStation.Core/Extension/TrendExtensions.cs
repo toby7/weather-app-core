@@ -1,17 +1,21 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Text;
+using WeatherStation.Model.Enums;
 
 namespace WeatherStation.Core.Extension
 {
-    using System.Linq;
-    using WeatherStation.Model.Enums;
-
     public static class TrendExtensions
     {
         public static Trend ToTrend(this IEnumerable<double> values, double currentValue)
         {
-            return currentValue > values.Sum() / values.Count() ? Trend.Up : Trend.Down;
+            var quotient = values.Sum() / values.Count();
+
+            if (currentValue > quotient)
+            {
+                return Trend.Up;
+            }
+
+            return currentValue < quotient ? Trend.Down : Trend.Unchanged;
         }
     }
 }
