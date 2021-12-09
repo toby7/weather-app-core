@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 namespace WeatherStation.Model.SolarEdge
 {
-    using Newtonsoft.Json;
-
     public class Value
     {
         public string date { get; set; }

@@ -1,19 +1,17 @@
-
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.OpenApi.Models;
+using WeatherStation.API.Providers;
+using WeatherStation.API.Services;
+using WeatherStation.API.Settings;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using WeatherStation.Core.Interfaces;
 
 namespace WeatherStation.API
 {
-    using Interfaces;
-    using Microsoft.Extensions.DependencyInjection.Extensions;
-    using Microsoft.OpenApi.Models;
-    using Providers;
-    using Services;
-    using Settings;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -50,10 +48,20 @@ namespace WeatherStation.API
 
             services.TryAddEnumerable(new[]
             {
-                ServiceDescriptor.Scoped<IKeyFigureProvider, WaterLevelProvider>(),
-                ServiceDescriptor.Scoped<IKeyFigureProvider, OutdoorTemperatureProvider>(),
-                ServiceDescriptor.Scoped<IKeyFigureProvider, SolarEnergyProvider>()
+                ServiceDescriptor.Singleton<IKeyFigureProvider, WaterLevelProvider>(),
+                ServiceDescriptor.Singleton<IKeyFigureProvider, OutdoorTemperatureProvider>(),
+                ServiceDescriptor.Singleton<IKeyFigureProvider, SolarEnergyProvider>()
             });
+
+            //RestService.For<INetamoApi>(
+            //    "https://api.github.com",
+            //    new RefitSettings 
+            //    {
+            //        AuthorizationHeaderValueGetter = () =>
+            //        {
+            //            Task.FromResult("hej");
+            //        }
+            //    });
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.Configure<SolarEdgeSettings>(Configuration.GetSection("SolarEdge"));

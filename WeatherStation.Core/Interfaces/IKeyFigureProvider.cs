@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace WeatherStation.API.Interfaces
+namespace WeatherStation.Core.Interfaces
 {
-    using Controllers;
     using Model.KeyFigure;
 
     public interface IKeyFigureProvider

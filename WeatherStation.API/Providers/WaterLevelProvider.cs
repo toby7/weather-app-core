@@ -5,12 +5,11 @@
     using System.Linq;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Controllers;
-    using Interfaces;
     using Model.KeyFigure;
     using Newtonsoft.Json;
     using Core.Extension;
     using Model.WaterLevel;
+    using WeatherStation.Core.Interfaces;
 
     public class WaterLevelProvider : IKeyFigureProvider
     {

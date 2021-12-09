@@ -5,9 +5,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using WeatherStation.API.Interfaces;
 using WeatherStation.API.Settings;
 using WeatherStation.Core.Extension;
+using WeatherStation.Core.Interfaces;
 using WeatherStation.Model.KeyFigure;
 using WeatherStation.Model.SolarEdge;
 

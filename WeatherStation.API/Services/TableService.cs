@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 
 namespace WeatherStation.API.Services
 {
-    using System.Reflection.Metadata.Ecma335;
     using System.Threading;
     using Microsoft.Azure.Cosmos.Table;
     using Microsoft.Azure.Cosmos.Table.Queryable;
     using Microsoft.Extensions.Configuration;
     using Model.Temperature;
-    using Newtonsoft.Json;
 
     public class TableService : ITableService
     {

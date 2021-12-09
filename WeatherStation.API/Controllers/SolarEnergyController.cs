@@ -1,34 +1,34 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using Microsoft.Extensions.Options;
+using WeatherStation.Model.KeyFigure;
+using WeatherStation.API.Settings;
+using WeatherStation.Core.Extension;
+using WeatherStation.Core.Interfaces;
 
 namespace WeatherStation.API.Controllers
 {
-    using System.Collections.Generic;
-    using Interfaces;
-    using Microsoft.Extensions.Options;
-    using Model.KeyFigure;
-    using Settings;
-
     [ApiController]
+    [Produces("application/json")]
     [Route("api/solarEnergy")]
     public class SolarEnergyController : ControllerBase
     {
         private readonly AppSettings settings;
-        private readonly IEnumerable<IKeyFigureProvider> providers;
+        private readonly IKeyFigureProvider provider;
 
         public SolarEnergyController(IOptions<AppSettings> settings, IEnumerable<IKeyFigureProvider> providers)
         {
-            this.providers = providers ?? throw new ArgumentNullException(nameof(providers)); ;
             this.settings = settings?.Value ?? throw new ArgumentNullException(nameof(settings));
+            this.provider = providers.Resolve(this.settings.SolarEnergyLastMonth);
         }
 
         [Route("LastMonth")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var model = await this.providers.FirstOrDefault(x => x.Name.Equals(this.settings.SolarEnergyLastMonth)).Get() ?? new KeyFigure();
+            var model = await this.provider.Get() ?? new KeyFigure();
 
             return this.Ok(model);
         }

@@ -2,7 +2,7 @@
 {
     using Enums;
 
-    public class TemperatureDto
+    public class Temperature
     {
         public double CurrentTemperature { get; set; }
 

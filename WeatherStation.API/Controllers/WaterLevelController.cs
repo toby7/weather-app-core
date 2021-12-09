@@ -1,36 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WeatherStation.API.Controllers
 {
-    using Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Model.KeyFigure;
-    using Newtonsoft.Json;
+    using WeatherStation.Core.Extension;
+    using WeatherStation.Core.Interfaces;
 
     // using Newtonsoft.Json;
 
     [ApiController]
+    [Produces("application/json")]
     [Route("api/water")]
     public class WaterLevelController : ControllerBase
     {
-        private readonly IEnumerable<IKeyFigureProvider> _keyFigureProviders;
+        private readonly IKeyFigureProvider provider;
 
-        public WaterLevelController(IEnumerable<IKeyFigureProvider> keyFigureProviders)
+        public WaterLevelController(IEnumerable<IKeyFigureProvider> providers)
         {
-            this._keyFigureProviders = keyFigureProviders ?? throw new NullReferenceException(nameof(IKeyFigureProvider));
+            this.provider = providers.Resolve("waterLevel");
         }
 
         [Route("level")]
         [HttpGet]
-        public async Task<ActionResult> Get()//Task<ActionResult<TemperatureDto>> Get()
+        public async Task<ActionResult> Get()
         {
-            //var model = null;//await this.tableService.GetLatestEntities("Temperature");
-            //await this.temperatureRepository.Add("test", "test");//.GetLastObservation();
-
-            var data = await _keyFigureProviders.SingleOrDefault(x => x.Name.Equals("waterLevel"))?.Get() ?? new KeyFigure();
+            var data = await provider.Get() ?? new KeyFigure();
 
             return this.Ok(data);
         }
