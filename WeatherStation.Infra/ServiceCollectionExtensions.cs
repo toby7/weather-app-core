@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Weather.Station.Infra.Netamo;
+using WeatherStation.Infra.Netamo;
 using WeatherStation.Core.Interfaces;
 using WeatherStation.Core.Models.Settings;
 using WeatherStation.Infra.Cache;

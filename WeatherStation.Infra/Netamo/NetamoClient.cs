@@ -10,7 +10,7 @@ using WeatherStation.Core.Models.Settings;
 using WeatherStation.Model.KeyFigure;
 using WeatherStation.Model.Netamo;
 
-namespace Weather.Station.Infra.Netamo
+namespace WeatherStation.Infra.Netamo
 {
     public sealed class NetamoClient : INetamoClient
     {
