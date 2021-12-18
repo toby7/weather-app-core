@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Refit;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WeatherStation.Core.Interfaces;
 using WeatherStation.Core.Models.Auth;
 using WeatherStation.Core.Models.Settings;

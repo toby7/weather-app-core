@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using System;
-using System.Threading.Tasks;
 using WeatherStation.Core.Interfaces;
 
 namespace WeatherStation.Infra.Cache
@@ -16,12 +14,13 @@ namespace WeatherStation.Infra.Cache
 
         public async Task<TCachedItem> GetAndCache<TCachedItem>(
             string key,
+            TimeSpan absoluteExpirationRelativeToNow,
             Func<Task<TCachedItem>> retriever)
         {
             var test = memoryCache.Get(key);
             var item = await memoryCache.GetOrCreateAsync(key, entry =>
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10800);
+                entry.AbsoluteExpirationRelativeToNow = absoluteExpirationRelativeToNow;
                 return retriever();
             });
 
