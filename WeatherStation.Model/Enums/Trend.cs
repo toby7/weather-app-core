@@ -3,7 +3,7 @@
     public enum Trend
     {
         Down,
-        Unchanged,
+        Stable,
         Up
     }
 }

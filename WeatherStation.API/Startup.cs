@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeatherStation.Core.Interfaces;
+using WeatherStation.Infra;
 
 namespace WeatherStation.API
 {
@@ -44,7 +45,12 @@ namespace WeatherStation.API
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
 
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.Configure<SolarEdgeSettings>(Configuration.GetSection("SolarEdge"));
+
             services.AddTransient<ITableService, TableService>();
+            services.AddMappers();
+            services.AddInfraServices();
 
             services.TryAddEnumerable(new[]
             {
@@ -52,19 +58,6 @@ namespace WeatherStation.API
                 ServiceDescriptor.Singleton<IKeyFigureProvider, OutdoorTemperatureProvider>(),
                 ServiceDescriptor.Singleton<IKeyFigureProvider, SolarEnergyProvider>()
             });
-
-            //RestService.For<INetamoApi>(
-            //    "https://api.github.com",
-            //    new RefitSettings 
-            //    {
-            //        AuthorizationHeaderValueGetter = () =>
-            //        {
-            //            Task.FromResult("hej");
-            //        }
-            //    });
-
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.Configure<SolarEdgeSettings>(Configuration.GetSection("SolarEdge"));
 
             services.AddControllers();
         }

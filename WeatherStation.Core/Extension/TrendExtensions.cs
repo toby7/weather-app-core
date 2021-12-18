@@ -15,7 +15,7 @@ namespace WeatherStation.Core.Extension
                 return Trend.Up;
             }
 
-            return currentValue < quotient ? Trend.Down : Trend.Unchanged;
+            return currentValue < quotient ? Trend.Down : Trend.Stable;
         }
     }
 }
