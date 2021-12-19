@@ -43,21 +43,6 @@
         public  Task<IEnumerable<KeyFigure>> Get(DateTimeOffset? fromDate)
         {
             return null;
-            //using var client = new HttpClient();
-            //var response = await client.GetAsync("https://opendata-download-ocobs.smhi.se/api/version/latest/parameter/6/station/2056/period/latest-day/data.json");
-            //var json = await response.Content.ReadAsStringAsync();
-
-            //var data = JsonConvert.DeserializeObject<WaterLevelJsonObject>(json);
-
-            //var model = new KeyFigure()
-            //{
-            //    Name = data.Parameter.Name,
-            //    Unit = data.Parameter.Unit,
-            //    Updated = new DateTime(data.Updated),
-            //    Value = data.Values.LastOrDefault()?.Value.ToString() ?? "error",
-            //};
-
-            //return model;
         }
     }
 }
