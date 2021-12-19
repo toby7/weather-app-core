@@ -10,6 +10,7 @@
     using Core.Extension;
     using Model.WaterLevel;
     using WeatherStation.Core.Interfaces;
+    using WeatherStation.Core.Constants;
 
     public class WaterLevelProvider : IKeyFigureProvider
     {
@@ -20,7 +21,6 @@
             using var client = new HttpClient();
             var response = await client.GetAsync("https://opendata-download-ocobs.smhi.se/api/version/latest/parameter/6/station/2056/period/latest-day/data.json");
             var json = await response.Content.ReadAsStringAsync();
-
             var data = JsonConvert.DeserializeObject<WaterLevelJsonObject>(json);
 
             var model = new KeyFigure()
@@ -29,6 +29,7 @@
                 Unit = data.Parameter.Unit,
                 Updated = DateTimeOffset.FromUnixTimeMilliseconds(data.Updated).DateTime,
                 Value = data.Values.LastOrDefault()?.Value.ToString() ?? "error",
+                Type = MeasureType.OceanLevel,
                 Trend = data.Values
                     .Reverse()
                     .Skip(1)

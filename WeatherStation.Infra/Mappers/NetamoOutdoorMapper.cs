@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WeatherStation.Core.Constants;
 using WeatherStation.Core.Interfaces;
 using WeatherStation.Model.Enums;
 using WeatherStation.Model.KeyFigure;
@@ -18,14 +19,15 @@ namespace WeatherStation.Infra.Mappers
                     Value = item.Temperature.ToString(),
                     Name = "Temperatur utomhus stugan",
                     Unit = "°",
-                    Trend = MapToTrend(item.temp_trend)
+                    Trend = MapToTrend(item.temp_trend),
+                    Type = MeasureType.OutdoorTemperature
                 },
-
                 new KeyFigure
                 {
                     Value = item.Humidity.ToString(),
                     Name = "Luftfuktighet utomhus stugan",
-                    Unit = "%"
+                    Unit = "%",
+                    Type = MeasureType.OutdoorHumidity
                 }
             };
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using WeatherStation.Core.Constants;
 using WeatherStation.Core.Interfaces;
 using WeatherStation.Model.Enums;
 using WeatherStation.Model.KeyFigure;
@@ -11,44 +10,46 @@ namespace WeatherStation.Infra.Mappers
     {
         public IEnumerable<KeyFigure> MapToMany(IndoorDashboardData item)
         {
-            var keyFigures = new List<KeyFigure>();
-
-            keyFigures.Add(new KeyFigure
+            var keyFigures = new List<KeyFigure>
             {
-                Value = item.Temperature.ToString(),
-                Name = "Temperatur inomhus stugan",
-                Unit = "°",
-                Trend = MapToTrend(item.temp_trend)
-            });
+                new KeyFigure
+                {
+                    Value = item.Temperature.ToString(),
+                    Name = "Temperatur inomhus stugan",
+                    Unit = "°",
+                    Trend = MapToTrend(item.temp_trend),
+                    Type = MeasureType.IndoorTemperature
+                },
+                new KeyFigure
+                {
+                    Value = item.Pressure.ToString(),
+                    Name = "Lufttryck inomhus stugan",
+                    Unit = "hPa",
+                    Trend = MapToTrend(item.pressure_trend),
+                    Type = MeasureType.IndoorPressure
+                },
+                new KeyFigure
+                {
+                    Value = item.CO2.ToString(),
+                    Name = "CO2 inomhus stugan",
+                    Unit = "ppm",
+                    Type = MeasureType.IndoorCO2
+                },
+                new KeyFigure
+                {
+                    Value = item.Humidity.ToString(),
+                    Name = "Luftfuktighet inomhus stugan",
+                    Unit = "%",
+                    Type = MeasureType.IndoorHumidity
+                }
+            };
 
-            keyFigures.Add(new KeyFigure
-            {
-                Value = item.Pressure.ToString(),
-                Name = "Lufttryck inomhus stugan",
-                Unit = "hPa",
-                Trend = MapToTrend(item.pressure_trend)
-            });
-
-            keyFigures.Add(new KeyFigure
-            {
-                Value = item.CO2.ToString(),
-                Name = "CO2 inomhus stugan",
-                Unit = "ppm"
-            });
-
-            keyFigures.Add(new KeyFigure
-            {
-                Value = item.Humidity.ToString(),
-                Name = "Luftfuktighet inomhus stugan",
-                Unit = "%"
-            });
-
-            keyFigures.Add(new KeyFigure
-            {
-                Value = item.Noise.ToString(),
-                Name = "Ljudnivå inomhus stugan",
-                Unit = "dB"
-            });
+            //keyFigures.Add(new KeyFigure
+            //{
+            //    Value = item.Noise.ToString(),
+            //    Name = "Ljudnivå inomhus stugan",
+            //    Unit = "dB"
+            //});
 
             return keyFigures;
         }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WeatherStation.API.Settings;
+using WeatherStation.Core.Constants;
 using WeatherStation.Core.Extension;
 using WeatherStation.Core.Interfaces;
 using WeatherStation.Model.KeyFigure;
@@ -23,7 +24,6 @@ namespace WeatherStation.API.Providers
             this.settings = settings?.Value ?? throw new ArgumentNullException(nameof(settings));
             this.baseUrl = $"{this.settings.BaseUrl}/{this.settings.SiteId}";
         }
-
         public string Name => nameof(SolarEnergyProvider);
 
         public async Task<KeyFigure> Get()
@@ -44,6 +44,7 @@ namespace WeatherStation.API.Providers
                 Name = "Solenergi idag",
                 Unit = "kWh",
                 Updated = DateTime.UtcNow,
+                Type = MeasureType.SolarEnergy,
                 Value = data.energy.values.First().value
                     .ToKiloWattHour()
                     .ToRounded(2)
