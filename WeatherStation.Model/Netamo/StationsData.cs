@@ -44,8 +44,8 @@ namespace WeatherStation.Model.Netamo
         public string type { get; set; }
         public int last_status_store { get; set; }
         public string module_name { get; set; }
-        public int firmware { get; set; }
-        public int wifi_status { get; set; }
+        public float firmware { get; set; }
+        public float wifi_status { get; set; }
         public bool reachable { get; set; }
         public bool co2_calibrating { get; set; }
         public string[] data_type { get; set; }
@@ -61,7 +61,7 @@ namespace WeatherStation.Model.Netamo
 
     public class Place
     {
-        public int altitude { get; set; }
+        public float altitude { get; set; }
         public string city { get; set; }
         public string country { get; set; }
         public string timezone { get; set; }
@@ -72,15 +72,15 @@ namespace WeatherStation.Model.Netamo
     {
         public int time_utc { get; set; }
         public float Temperature { get; set; }
-        public int CO2 { get; set; }
-        public int Humidity { get; set; }
-        public int Noise { get; set; }
+        public float CO2 { get; set; }
+        public float Humidity { get; set; }
+        public float Noise { get; set; }
         public float Pressure { get; set; }
         public float AbsolutePressure { get; set; }
         public float min_temp { get; set; }
-        public int max_temp { get; set; }
-        public int date_max_temp { get; set; }
-        public int date_min_temp { get; set; }
+        public float max_temp { get; set; }
+        public float date_max_temp { get; set; }
+        public float date_min_temp { get; set; }
         public string temp_trend { get; set; }
         public string pressure_trend { get; set; }
     }
@@ -92,7 +92,7 @@ namespace WeatherStation.Model.Netamo
         public string module_name { get; set; }
         public int last_setup { get; set; }
         public string[] data_type { get; set; }
-        public int battery_percent { get; set; }
+        public float battery_percent { get; set; }
         public bool reachable { get; set; }
         public int firmware { get; set; }
         public int last_message { get; set; }
@@ -107,7 +107,7 @@ namespace WeatherStation.Model.Netamo
     {
         public int time_utc { get; set; }
         public float Temperature { get; set; }
-        public int Humidity { get; set; }
+        public float Humidity { get; set; }
         public float min_temp { get; set; }
         public float max_temp { get; set; }
         public int date_max_temp { get; set; }
