@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>fb462899-64f1-4d43-912f-661d600d014f</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/d6ae8667-6cfe-427f-a40c-a4ad01b6c537/resourcegroups/rg-ostnas/providers/Microsoft.Insights/components/ostnas-ai</ApplicationInsightsResourceId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.20.0" />

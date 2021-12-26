@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using WeatherStation.Infra.Netamo;
 using WeatherStation.Core.Interfaces;
 using WeatherStation.Core.Models.Settings;
@@ -20,6 +22,14 @@ namespace WeatherStation.Infra
 
             services.AddSingleton<ICacheService, CacheService>();
             services.AddSingleton<INetamoClient, NetamoClient>();
+            //services.AddSingleton<INetamoClient, FakeNetamoClient>();
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
 
             return services;
         }

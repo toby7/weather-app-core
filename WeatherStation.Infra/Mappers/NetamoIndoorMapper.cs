@@ -15,7 +15,7 @@ namespace WeatherStation.Infra.Mappers
                 new KeyFigure
                 {
                     Value = item.Temperature.ToString(),
-                    Name = "Temperatur inomhus stugan",
+                    Name = "Temperatur",
                     Unit = "°",
                     Trend = MapToTrend(item.temp_trend),
                     Type = MeasureType.IndoorTemperature
@@ -23,7 +23,7 @@ namespace WeatherStation.Infra.Mappers
                 new KeyFigure
                 {
                     Value = item.Pressure.ToString(),
-                    Name = "Lufttryck inomhus stugan",
+                    Name = "Lufttryck",
                     Unit = "hPa",
                     Trend = MapToTrend(item.pressure_trend),
                     Type = MeasureType.IndoorPressure
@@ -31,14 +31,14 @@ namespace WeatherStation.Infra.Mappers
                 new KeyFigure
                 {
                     Value = item.CO2.ToString(),
-                    Name = "CO2 inomhus stugan",
+                    Name = "CO2",
                     Unit = "ppm",
                     Type = MeasureType.IndoorCO2
                 },
                 new KeyFigure
                 {
                     Value = item.Humidity.ToString(),
-                    Name = "Luftfuktighet inomhus stugan",
+                    Name = "Luftfuktighet",
                     Unit = "%",
                     Type = MeasureType.IndoorHumidity
                 }

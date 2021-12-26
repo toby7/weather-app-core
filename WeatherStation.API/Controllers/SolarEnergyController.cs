@@ -12,7 +12,7 @@ namespace WeatherStation.API.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("api/solarEnergy")]
+    [Route("api/")]
     public class SolarEnergyController : ControllerBase
     {
         private readonly AppSettings settings;
@@ -24,7 +24,7 @@ namespace WeatherStation.API.Controllers
             this.provider = providers.Resolve(this.settings.SolarEnergyLastMonth);
         }
 
-        [Route("LastMonth")]
+        [Route("solar-energy")]
         [HttpGet]
         public async Task<IActionResult> Get()
         {

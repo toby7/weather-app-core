@@ -17,7 +17,7 @@ namespace WeatherStation.Infra.Mappers
                 new KeyFigure
                 {
                     Value = item.Temperature.ToString(),
-                    Name = "Temperatur utomhus stugan",
+                    Name = "Temperatur",
                     Unit = "°",
                     Trend = MapToTrend(item.temp_trend),
                     Type = MeasureType.OutdoorTemperature
@@ -25,7 +25,7 @@ namespace WeatherStation.Infra.Mappers
                 new KeyFigure
                 {
                     Value = item.Humidity.ToString(),
-                    Name = "Luftfuktighet utomhus stugan",
+                    Name = "Luftfuktighet",
                     Unit = "%",
                     Type = MeasureType.OutdoorHumidity
                 }

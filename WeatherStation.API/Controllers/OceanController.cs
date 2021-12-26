@@ -12,12 +12,12 @@ namespace WeatherStation.API.Controllers
 
     [ApiController]
     [Produces("application/json")]
-    [Route("api/water")]
-    public class WaterLevelController : ControllerBase
+    [Route("api/ocean")]
+    public class OceanController : ControllerBase
     {
         private readonly IKeyFigureProvider provider;
 
-        public WaterLevelController(IEnumerable<IKeyFigureProvider> providers)
+        public OceanController(IEnumerable<IKeyFigureProvider> providers)
         {
             this.provider = providers.Resolve("waterLevel");
         }
