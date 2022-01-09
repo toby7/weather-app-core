@@ -1,30 +1,29 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using WeatherStation.Core.Interfaces;
 
-namespace WeatherStation.Infra.Cache
+namespace WeatherStation.Infra.Cache;
+
+public sealed class CacheService : ICacheService
 {
-    public sealed class CacheService : ICacheService
+    private readonly IMemoryCache memoryCache;
+
+    public CacheService(IMemoryCache memoryCache)
     {
-        private readonly IMemoryCache memoryCache;
+        this.memoryCache = memoryCache;
+    }
 
-        public CacheService(IMemoryCache memoryCache)
+    public async Task<TCachedItem> GetAndCache<TCachedItem>(
+        string key,
+        TimeSpan absoluteExpirationRelativeToNow,
+        Func<Task<TCachedItem>> retriever)
+    {
+        var test = memoryCache.Get(key);
+        var item = await memoryCache.GetOrCreateAsync(key, entry =>
         {
-            this.memoryCache = memoryCache;
-        }
+            entry.AbsoluteExpirationRelativeToNow = absoluteExpirationRelativeToNow;
+            return retriever();
+        });
 
-        public async Task<TCachedItem> GetAndCache<TCachedItem>(
-            string key,
-            TimeSpan absoluteExpirationRelativeToNow,
-            Func<Task<TCachedItem>> retriever)
-        {
-            var test = memoryCache.Get(key);
-            var item = await memoryCache.GetOrCreateAsync(key, entry =>
-            {
-                entry.AbsoluteExpirationRelativeToNow = absoluteExpirationRelativeToNow;
-                return retriever();
-            });
-
-            return item;
-        }
+        return item;
     }
 }

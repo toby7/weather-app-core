@@ -9,37 +9,36 @@ using WeatherStation.Infra.Cache;
 using WeatherStation.Infra.Mappers;
 using WeatherStation.Model.Netamo;
 
-namespace WeatherStation.Infra
+namespace WeatherStation.Infra;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static IServiceCollection AddInfraServices(this IServiceCollection services)
     {
-        public static IServiceCollection AddInfraServices(this IServiceCollection services)
+        services.AddOptions<NetamoApiSettings>().Configure<IConfiguration>((settings, configuration) =>
         {
-            services.AddOptions<NetamoApiSettings>().Configure<IConfiguration>((settings, configuration) =>
-            {
-                configuration.GetSection("NetamoApiSettings").Bind(settings);
-            });
+            configuration.GetSection("NetamoApiSettings").Bind(settings);
+        });
 
-            services.AddSingleton<ICacheService, CacheService>();
-            services.AddSingleton<INetamoClient, NetamoClient>();
-            //services.AddSingleton<INetamoClient, FakeNetamoClient>();
+        services.AddSingleton<ICacheService, CacheService>();
+        services.AddSingleton<INetamoClient, NetamoClient>();
+        //services.AddSingleton<INetamoClient, FakeNetamoClient>();
 
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-
-            return services;
-        }
-
-        public static IServiceCollection AddMappers(this IServiceCollection services)
+        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
         {
-            services.AddSingleton<IKeyFigureMapper<IndoorDashboardData>, NetamoIndoorMapper>();
-            services.AddSingleton<IKeyFigureMapper<OutdoorDashboardData>, NetamoOutdoorMapper>();
+            Formatting = Formatting.Indented,
+            NullValueHandling = NullValueHandling.Ignore,
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
 
-            return services;          
-        }
+        return services;
+    }
+
+    public static IServiceCollection AddMappers(this IServiceCollection services)
+    {
+        services.AddSingleton<IKeyFigureMapper<IndoorDashboardData>, NetamoIndoorMapper>();
+        services.AddSingleton<IKeyFigureMapper<OutdoorDashboardData>, NetamoOutdoorMapper>();
+
+        return services;          
     }
 }
