@@ -6,6 +6,7 @@ namespace WeatherStation.Infra.Cache;
 public sealed class CacheService : ICacheService
 {
     private readonly IMemoryCache memoryCache;
+    static SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
     public CacheService(IMemoryCache memoryCache)
     {
@@ -17,12 +18,32 @@ public sealed class CacheService : ICacheService
         TimeSpan absoluteExpirationRelativeToNow,
         Func<Task<TCachedItem>> retriever)
     {
-        var test = memoryCache.Get(key);
-        var item = await memoryCache.GetOrCreateAsync(key, entry =>
+        var item = memoryCache.Get<TCachedItem>(key);
+
+        if (item is not null)
         {
-            entry.AbsoluteExpirationRelativeToNow = absoluteExpirationRelativeToNow;
-            return retriever();
-        });
+            return item;
+        }
+
+        await semaphoreSlim.WaitAsync();
+        try
+        {
+            item = memoryCache.Get<TCachedItem>(key);
+
+            if (item is not null)
+            {
+                return item;
+            }
+
+            item = await retriever();
+            var cacheEntryOptions = new MemoryCacheEntryOptions() { AbsoluteExpirationRelativeToNow = absoluteExpirationRelativeToNow };
+                
+            memoryCache.Set(key, item, cacheEntryOptions);
+        }
+        finally
+        {
+            semaphoreSlim.Release();
+        }
 
         return item;
     }
